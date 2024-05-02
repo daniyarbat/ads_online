@@ -51,3 +51,11 @@ class User(AbstractBaseUser):
     # также для работы модели пользователя должен быть переопределен
     # менеджер объектов
     objects = UserManager()
+
+    @property
+    def is_admin(self):
+        return self.role == UserRoles.ADMIN  #
+
+    @property
+    def is_user(self):
+        return self.role == UserRoles.USER

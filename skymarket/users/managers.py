@@ -31,7 +31,7 @@ class UserManager(BaseUserManager):
         это можно сделать с помощью команды createsuperuser
         """
 
-        user = self.create_user (
+        user = self.create_user(
             email,
             first_name=first_name,
             last_name=last_name,
