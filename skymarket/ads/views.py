@@ -1,5 +1,7 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import pagination, viewsets, generics
 
+from .filters import AdFilter
 from .models import Ad, Comment
 from .serializers import AdSerializer, AdListSerializer, CommentListSerializer, CommentSerializer
 
@@ -13,6 +15,8 @@ class AdViewSet(viewsets.ModelViewSet):
     serializer_class = AdSerializer
     queryset = Ad.objects.all()
     pagination_class = AdPagination
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = AdFilter
 
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
