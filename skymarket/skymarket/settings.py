@@ -32,10 +32,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
 
-# TODO здесь тоже нужно подключить Swagger и corsheaders
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -64,7 +62,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "skymarket.urls"
@@ -87,14 +84,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "skymarket.wsgi.application"
 
-# TODO здесь мы настраиваем аутентификацию и пагинацию
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
 }
 
-# TODO здесь мы настраиваем Djoser
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': '/api/users/reset_password_confirm/{uid}/{token}',
     'USERNAME_RESET_CONFIRM_URL': '/api/users/reset_password_confirm/{uid}/{token}',
@@ -109,7 +107,6 @@ DJOSER = {
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# TODO здесь необходимо настроить подключение к БД
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -118,7 +115,6 @@ DATABASES = {
         "PASSWORD": os.environ.get("DB_PASSWORD")
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -180,8 +176,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = 'users.User'
 
 # Include Email Backend
-# TODO эти переменные мы добавили чтобы помочь Вам настроить почтовый ящик на django.
-# TODO теперь Вам необходимо создать файл .env на основе .env.example
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = os.environ.get('EMAIL_HOST')
 EMAIL_PORT = os.environ.get('EMAIL_PORT')

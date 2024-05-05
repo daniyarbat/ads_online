@@ -9,7 +9,7 @@ NULLABLE = {
 
 class Ad(models.Model):
     title = models.CharField(max_length=100, verbose_name='название')
-    price = models.PositiveIntegerField(verbose_name='цена')
+    price = models.PositiveIntegerField(default=0, verbose_name='цена')
     description = models.TextField(verbose_name='описание', **NULLABLE)
     image = models.ImageField(upload_to='media', **NULLABLE)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, verbose_name="пользователь", **NULLABLE)
